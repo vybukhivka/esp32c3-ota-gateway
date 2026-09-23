@@ -6,10 +6,10 @@
 #include "esp_event.h"
 #include "esp_log.h"
 #include "nvs_flash.h"
+#include "wifi_creds.h"
 
-#define WIFI_SSID      "your_ssid"
-#define WIFI_PASS      "your_password"
-#define MAX_RETRY      5
+#define MAX_RETRY          5
+#define WIFI_TX_POWER      40
 
 static EventGroupHandle_t s_wifi_event_group;
 #define WIFI_CONNECTED_BIT BIT0
@@ -58,11 +58,13 @@ void wifi_init_sta(void)
             .ssid = WIFI_SSID,
             .password = WIFI_PASS,
             .threshold.authmode = WIFI_AUTH_WPA2_PSK,
+            .pmf_cfg = { .capable = true, .required = false },
         },
     };
     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA));
     ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &wifi_config));
     ESP_ERROR_CHECK(esp_wifi_start());
+	ESP_ERROR_CHECK(esp_wifi_set_max_tx_power(WIFI_TX_POWER));
 
     ESP_LOGI(TAG, "connecting to %s...", WIFI_SSID);
 
