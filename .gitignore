@@ -2,6 +2,8 @@ build/
 managed_components/
 dependencies.lock
 
+main/wifi_creds.h
+
 sdkconfig
 sdkconfig.old
 
