@@ -1,0 +1,12 @@
+build/
+managed_components/
+dependencies.lock
+
+sdkconfig
+sdkconfig.old
+
+CMakeCache.txt
+CMakeFiles/
+
+*.swp
+.DS_Store
